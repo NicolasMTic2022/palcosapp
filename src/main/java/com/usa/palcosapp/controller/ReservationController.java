@@ -19,7 +19,7 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @GetMapping("/all")
-    public List<Reservation> gerAll(){
+    public List<Reservation> getAll(){
         return reservationService.getAll();
     }
     @GetMapping("/{idReservation}")

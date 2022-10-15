@@ -19,7 +19,7 @@ public class BoxController {
     private BoxService boxService;
 
     @GetMapping("/all")
-    public List<Box> gerAll(){
+    public List<Box> getAll(){
         return boxService.getAll();
     }
     @GetMapping("/{idBox}")

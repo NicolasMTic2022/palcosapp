@@ -19,7 +19,7 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping("/all")
-    public List<Client> gerAll(){
+    public List<Client> getAll(){
         return clientService.getAll();
     }
     @GetMapping("/{idClient}")
