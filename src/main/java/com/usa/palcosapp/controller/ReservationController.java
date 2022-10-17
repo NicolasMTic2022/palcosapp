@@ -1,6 +1,8 @@
 package com.usa.palcosapp.controller;
 
+import com.usa.palcosapp.model.ClientReport;
 import com.usa.palcosapp.model.Reservation;
+import com.usa.palcosapp.model.ReservationReport;
 import com.usa.palcosapp.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,4 +46,25 @@ public class ReservationController {
     public boolean delete (@PathVariable("id") Integer id){
         return reservationService.delete(id);
     }
+
+
+    @GetMapping("/report-status")
+    public ReservationReport getReservationStatusReport(){
+        return  reservationService.getReservationStatusReport();
+    }
+
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservation> getReservationReportDates (@PathVariable("dateOne")String dateOne,@PathVariable("dateTwo") String dateTwo){
+       return reservationService.getReservationPeriod(dateOne,dateTwo);
+    }
+
+    @GetMapping("/report-clients")
+    public List<ClientReport> getReportClients(){
+        return reservationService.getTopClient();
+    }
+
+
+
+
+
 }
