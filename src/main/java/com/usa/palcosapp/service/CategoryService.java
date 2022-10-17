@@ -1,5 +1,4 @@
-package com.usa.palcosapp.Service;
-
+package com.usa.palcosapp.service;
 
 import com.usa.palcosapp.model.Category;
 import com.usa.palcosapp.repository.CategoryRepository;
@@ -11,55 +10,48 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
+
     @Autowired
     private CategoryRepository categoryRepository;
 
+    public List<Category> getAll(){ return categoryRepository.getAll();}
 
-    public List<Category> getAll(){
-        return categoryRepository.getAll();
-    }
-
-    public Optional<Category> getById(Integer id){
-        return categoryRepository.getById(id);
-
-    }
+    public Optional<Category> getById(Integer id){ return categoryRepository.getById(id);}
 
     public Category save(Category category){
-        if (category.getId()==null)
-        {
+        Optional<Category> optional;
+        if (category.getId()== null){
             return categoryRepository.save(category);
-        }
-        else{
-            Optional<Category> optional=categoryRepository.getById(category.getId());
+        } else {
+            optional = categoryRepository.getById(category.getId());
             if (optional.isEmpty()){
                 return categoryRepository.save(category);
-            }else{
+            } else {
                 return category;
             }
-
         }
     }
+
     public Category update (Category category){
-        if(category.getId()!=null){
-            Optional<Category> optional=categoryRepository.getById(category.getId());
-            if(!optional.isEmpty()){
-                if(category.getName()!=null){
+        if (category.getId() != null){
+            Optional<Category> optional = categoryRepository.getById(category.getId());
+            if (!optional.isEmpty()){
+                if (category.getName() != null){
                     optional.get().setName(category.getName());
                 }
-
-                if(category.getDescription()!=null){
+                if (category.getDescription() != null){
                     optional.get().setDescription(category.getDescription());
                 }
-                categoryRepository.save(optional.get());
+                categoryRepository.save(optional.get()); //Como atributo "category"¿?
                 return optional.get();
-            }else{
+            } else {
                 return category;
             }
-
-        }else{
+        } else {
             return category;
         }
     }
+
     public boolean delete(Integer id){
         Boolean aBoolean = getById(id).map(category -> {
             categoryRepository.delete(category);

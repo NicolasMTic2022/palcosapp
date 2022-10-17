@@ -1,5 +1,4 @@
-package com.usa.palcosapp.Service;
-
+package com.usa.palcosapp.service;
 
 import com.usa.palcosapp.model.Message;
 import com.usa.palcosapp.repository.MessageRepository;
@@ -11,52 +10,46 @@ import java.util.Optional;
 
 @Service
 public class MessageService {
+
     @Autowired
     private MessageRepository messageRepository;
 
+    public List<Message> getAll(){ return messageRepository.getAll();}
 
-    public List<Message> getAll(){
-        return messageRepository.getAll();
-    }
-
-    public Optional<Message> getById(Integer id){
-        return messageRepository.getById(id);
-
-    }
+    public Optional<Message> getById(Integer id){ return messageRepository.getById(id);}
 
     public Message save(Message message){
-        if (message.getIdMessage()==null)
-        {
+        if (message.getIdMessage() == null){
             return messageRepository.save(message);
-        }
-        else{
-            Optional<Message> optional=messageRepository.getById(message.getIdMessage());
-            if (optional.isEmpty()){
+        } else {
+            Optional<Message> optional = messageRepository.getById(message.getIdMessage());
+            if(optional.isEmpty()){
                 return messageRepository.save(message);
-            }else{
+            } else {
                 return message;
             }
-
         }
     }
-    public Message update (Message message){
-        if(message.getIdMessage()!=null){
-            Optional<Message> optional=messageRepository.getById(message.getIdMessage());
-            if(!optional.isEmpty()){
-                if(message.getMessageText()!=null){
-                    optional.get().setMessageText(message.getMessageText());
-                }
 
+    public  Message update(Message message){
+        if (message.getIdMessage()!= null){
+            Optional<Message> optional = messageRepository.getById(message.getIdMessage());
+            if(!optional.isEmpty()){
+                if (message.getMessageText() != null){
+                    optional.get().setMessageText(message.getMessageText());
+                    optional.get().setClient(message.getClient()); //Esto se hace por la relación muchos a uno del modelo
+                    optional.get().setBox(message.getBox()); //Esto se hace por la relación muchos a uno del modelo
+                }
                 messageRepository.save(optional.get());
                 return optional.get();
-            }else{
+            } else {
                 return message;
             }
-
-        }else{
+        } else {
             return message;
         }
     }
+
     public boolean delete(Integer id){
         Boolean aBoolean = getById(id).map(message -> {
             messageRepository.delete(message);

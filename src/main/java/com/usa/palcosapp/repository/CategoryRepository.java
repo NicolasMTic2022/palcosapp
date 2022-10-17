@@ -1,7 +1,7 @@
 package com.usa.palcosapp.repository;
 
 import com.usa.palcosapp.model.Category;
-import com.usa.palcosapp.repository.crudrepository.CategoryCrudRepository;
+import com.usa.palcosapp.repository.crudRepository.CategoryCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public class CategoryRepository {
+
     @Autowired
     private CategoryCrudRepository categoryCrudRepository;
 
@@ -17,7 +18,7 @@ public class CategoryRepository {
         return (List<Category>) categoryCrudRepository.findAll();
     }
 
-    public Optional<Category> getById(Integer id){
+    public Optional<Category> getById (Integer id){
         return categoryCrudRepository.findById(id);
     }
 
@@ -28,5 +29,6 @@ public class CategoryRepository {
     public void delete(Category category){
         categoryCrudRepository.delete(category);
     }
+
 
 }

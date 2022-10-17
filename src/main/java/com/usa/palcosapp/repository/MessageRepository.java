@@ -1,8 +1,7 @@
 package com.usa.palcosapp.repository;
 
-import com.usa.palcosapp.model.Client;
 import com.usa.palcosapp.model.Message;
-import com.usa.palcosapp.repository.crudrepository.MessageCrudRepository;
+import com.usa.palcosapp.repository.crudRepository.MessageCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,20 +15,18 @@ public class MessageRepository {
     private MessageCrudRepository messageCrudRepository;
 
     public List<Message> getAll(){
-        return(List<Message>) messageCrudRepository.findAll();
+        return (List<Message>) messageCrudRepository.findAll();
     }
 
-    public Optional<Message> getById(Integer id){
+    public Optional<Message> getById (Integer id){
         return messageCrudRepository.findById(id);
     }
 
-    public Message save (Message message){
-        return messageCrudRepository.save(message);
+    public Message save(Message message){
+        return  messageCrudRepository.save(message);
     }
 
-    public  void delete (Message message){
+    public void delete(Message message){
         messageCrudRepository.delete(message);
     }
-
-
 }
